@@ -1,0 +1,25 @@
+# Etapa de compilación
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
+
+# Copiar archivos de proyecto
+COPY ["Spa.Api/Spa.Api.csproj", "Spa.Api/"]
+COPY ["Spa.Application/Spa.Application.csproj", "Spa.Application/"]
+COPY ["Spa.Domain/Spa.Domain.csproj", "Spa.Domain/"]
+COPY ["Spa.Infraestructure/Spa.Infraestructure.csproj", "Spa.Infraestructure/"]
+COPY ["Spa.Kernel/Spa.Kernel.csproj", "Spa.Kernel/"]
+
+# Restaurar paquetes
+RUN dotnet restore "Spa.Api/Spa.Api.csproj"
+
+# Copiar todo el código y compilar
+COPY . .
+WORKDIR "/src/Spa.Api"
+RUN dotnet publish -c Release -o /app
+
+# Etapa de ejecución con .NET 8
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
+WORKDIR /app
+COPY --from=build /app .
+EXPOSE 8080
+CMD ["dotnet", "Spa.Api.dll"]
