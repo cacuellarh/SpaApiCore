@@ -14,7 +14,7 @@ namespace Spa.Application
                   rollingInterval: RollingInterval.Day, // Crea un archivo nuevo cada día
                   retainedFileCountLimit: 7)            // Guarda logs de los últimos 7 días
             .CreateLogger();
-
+            Console.WriteLine("asdas");
             services.AddAutoMapper(typeof(MappingProfile).Assembly);
 
             return services;
