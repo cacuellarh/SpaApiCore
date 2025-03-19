@@ -12,7 +12,7 @@ using Spa.Infraestructure.Persistence;
 namespace Spa.Infraestructure.Migrations
 {
     [DbContext(typeof(SpaContext))]
-    [Migration("20250319000433_initial")]
+    [Migration("20250319011230_initial")]
     partial class initial
     {
         /// <inheritdoc />
