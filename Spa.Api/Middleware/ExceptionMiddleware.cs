@@ -48,7 +48,8 @@ namespace Spa.Api.Middleware
             {
                 IsSuccess = false,
                 Message = message,
-                ErrorDetails = exception.Message 
+                ErrorDetails = exception.Message ,
+                InnerException = exception.InnerException.Message
             };
 
             return context.Response.WriteAsJsonAsync(errorResponse);
